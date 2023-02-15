@@ -1,0 +1,29 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 2048
+
+#Prime Sieve
+primes = [2]
+for i in range(3,N):
+    p = True
+    k = 0
+    j = primes[0]
+    while p and j <= i**(1/2):
+        p = (i % j) != 0
+        k += 1
+        j = primes[k]
+    if p:
+        primes.append(i)
+        
+#Recording the Goldbach levels of each number from 1 to N
+Goldbacity = np.zeros(N+1)
+for n in range(0,N+1):
+    k = 0
+    j = primes[k]
+    while j <= n/2:
+        if n-j in primes:
+            Goldbacity[n] += 1
+        k += 1
+        j = primes[k]
+        
